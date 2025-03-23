@@ -1,9 +1,10 @@
+import Home from "./components/pages/Home"
 
 function App() {
 
   return (
     <>
-    <h1 className="text-6xl">Hello</h1>
+    <Home />
     </>
   )
 }
