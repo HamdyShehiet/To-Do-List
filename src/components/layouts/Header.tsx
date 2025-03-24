@@ -15,10 +15,10 @@ function Header() {
             <h1 className="text-[1.35rem] font-bold text-gray-900">TaskFlow</h1>
           </div>
           <div>
-            <button className="text-xl text-gray-900">
+            <button className="text-xl text-gray-900 hover:text-gray-500">
               <i className="fa-solid fa-moon"></i>
             </button>
-            <button className="text-xl text-yellow-500">
+            <button className="text-xl text-yellow-500 hover:text-yellow-600">
               <i className="fa-solid fa-sun"></i>
             </button>
           </div>
