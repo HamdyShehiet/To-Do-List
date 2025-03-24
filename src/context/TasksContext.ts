@@ -1,4 +1,19 @@
-import { createContext } from "react";
+import { createContext, Dispatch, SetStateAction } from "react";
 
+export interface Todo {
+  id: string;
+  title: string;
+  description: string;
+  isCompleted: boolean;
+  date: string;
+}
 
-export const TasksProvider = createContext({})
+export interface TasksContextType {
+  tasks: Todo[];
+  setTasks: Dispatch<SetStateAction<Todo[]>>;
+}
+
+export const TasksContext = createContext<TasksContextType>({
+  tasks: [],
+  setTasks: () => {},
+});
