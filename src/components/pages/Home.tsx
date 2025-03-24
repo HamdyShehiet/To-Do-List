@@ -1,10 +1,16 @@
+import { useEffect, useState } from "react";
 import Header from "../layouts/Header";
 import TaskForm from "../utils/TaskForm";
 import TaskList from "../utils/TaskList";
 
 function Home() {
+  const [tasks, setTasks] = useState<[]>([])
+
+  useEffect(()=>{
+    localStorage.setItem("Tasks", JSON.stringify(tasks))
+  },[tasks])
   return (
-    <>
+    <div>
       <Header />
       <main>
         <section className="py-8">
@@ -14,7 +20,7 @@ function Home() {
           </div>
         </section>
       </main>
-    </>
+    </div>
   );
 }
 
