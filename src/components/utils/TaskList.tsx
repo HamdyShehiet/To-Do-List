@@ -1,6 +1,7 @@
 import NoTasks from "./NoTasks";
 import TaskItem from "./TaskItem";
 import { useContext } from "react";
+import { toast } from "react-toastify";
 import { TasksContext, Todo } from "../../context/TasksContext";
 
 function TaskList() {
@@ -9,18 +10,27 @@ function TaskList() {
   /**
    * Delete Task
    */
-  const deleteTask =(task: Todo): void =>{
-    const updatedTasks = tasks?.filter((item)=> item.id !== task.id)
-    setTasks(updatedTasks)
-  }
+  const deleteTask = (task: Todo): void => {
+    const updatedTasks = tasks?.filter((item) => item.id !== task.id);
+    setTasks(updatedTasks);
+  };
 
   /**
    * ToggleCompleted Task
    */
-  const toggleCompleted =(task: Todo): void =>{
-    const updatedTasks = tasks.map((item)=> item.id === task.id ? {...item, isCompleted : !item.isCompleted } : item )
-    setTasks(updatedTasks)
-    }
+  const toggleCompleted = (task: Todo): void => {
+    const updatedTasks = tasks.map((item) => (item.id === task.id ? { ...item, isCompleted: !item.isCompleted } : item));
+    setTasks(updatedTasks);
+  };
+
+  /**
+   * Edit Tasks
+   */
+  const editTask = (updatedTask: Todo): void => {
+    const updatedTasks = tasks?.map((item) => (item.id === updatedTask.id ? updatedTask : item));
+    setTasks(updatedTasks);
+    toast.success("Task Edited Successfully");
+  };
 
   return (
     <>
@@ -28,9 +38,9 @@ function TaskList() {
         <h2 className="text-xl font-semibold mb-6 dark:text-white">My Tasks</h2>
         <hr className="pb-6" />
         <div>
-          { tasks.length !== 0 ? (
+          {tasks.length !== 0 ? (
             tasks?.map((task) => {
-              return <TaskItem key={task.id} task={task} deleteTask={deleteTask} toggleCompleted={toggleCompleted}/>;
+              return <TaskItem key={task.id} task={task} editTask={editTask} deleteTask={deleteTask} toggleCompleted={toggleCompleted} />;
             })
           ) : (
             <NoTasks />

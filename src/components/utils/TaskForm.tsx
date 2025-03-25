@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
 import { useContext, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { TasksContext, Todo } from "../../context/TasksContext";
 
-interface FormInputs {
+export interface FormInputs {
   title: string;
   description: string;
 }
@@ -37,18 +37,6 @@ function TaskForm() {
   return (
     <>
       <div className="xl:self-start bg-white dark:bg-transparent p-3 rounded-lg shadow-sm font-[poppins]">
-        <ToastContainer
-          position="top-right"
-          autoClose={2500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
         <h2 className="text-xl font-semibold mb-6 dark:text-white">Add New Task</h2>
         <form onSubmit={(e) => e.preventDefault()}>
           <div className="mb-4">
