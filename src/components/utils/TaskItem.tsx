@@ -12,7 +12,7 @@ function TaskItem({ task, deleteTask, toggleCompleted }: TaskProps) {
     <>
       <div className="flex flex-col gap-6 mb-4 p-3 border rounded-md">
         <div className="flex items-center justify-between">
-          
+
           <div className="flex items-center gap-3">
             <h3 className={`font-medium text-lg text-gray-900 dark:text-white ${task.isCompleted ? "line-through" : ""}`}>{task.title}</h3>
             {task.isCompleted && (
@@ -38,6 +38,31 @@ function TaskItem({ task, deleteTask, toggleCompleted }: TaskProps) {
           <p className={`text-[.9rem] leading-[1.8] font-medium text-gray-700 dark:text-white ${task.isCompleted ? "line-through" : ""}`}>{task.description}</p>
           <span className="self-end text-[.9rem] leading-[1.8] font-medium text-gray-700 dark:text-white">{task.date}</span>
         </div>
+
+
+
+        <div className="mb-4">
+            <input
+              autoFocus
+              type="text"
+              name="title"
+              className="w-full p-2 border border-gray-300 font-medium rounded-md focus:outline-indigo-700"
+            />
+          </div>
+          <div className="mb-4">
+            <textarea
+              name="description"
+              className="w-full p-2 border border-gray-300 rounded-md max-h-48 min-h-24 font-medium focus:outline-indigo-700"
+            />
+          </div>
+          <div className="flex items-center justify-end gap-4">
+          <button  className={` text-gray-900 dark:text-white py-2 px-4 rounded-md`}>
+            Cancel
+          </button>
+          <button  className={` bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300`}>
+            Save Changes
+          </button>
+          </div>
       </div>
     </>
   );
