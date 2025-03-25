@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
-import { TasksContext, Todo } from "../../context/TasksContext";
 import { v4 as uuidv4 } from "uuid";
+import { useContext, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { TasksContext, Todo } from "../../context/TasksContext";
 
 interface FormInputs {
   title: string;
@@ -24,13 +24,13 @@ function TaskForm() {
     if (title.trim() !== "" && description.trim() !== "") {
       const newTask: Todo = { ...formInputs, id: uuidv4(), isCompleted : false, date: new Date().toLocaleString() }
       setTasks([...tasks, newTask]);
-      toast.success("Task Added Successful");
+      toast.success("Task Added Successfully");
       setFormInputs({
         title : "", 
         description: "",
       })
     } else {
-      toast.error("Fill all feilds");
+      toast.error("Please fill in all fields");
     }
   };
 
