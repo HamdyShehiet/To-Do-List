@@ -76,7 +76,7 @@ function TaskList() {
               return <TaskItem key={task.id} task={task} editTask={editTask} deleteTask={deleteTask} toggleCompleted={toggleCompleted} />;
             })
           ) : (
-            <NoTasks />
+            <NoTasks filter={filter} />
           )}
         </div>
       </div>
