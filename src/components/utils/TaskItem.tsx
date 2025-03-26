@@ -10,11 +10,11 @@ interface TaskProps {
 }
 
 function TaskItem({ task, deleteTask, toggleCompleted, editTask }: TaskProps) {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editingInputs, setEditingInputs] = useState<FormInputs>({
     title: task.title,
     description: task.description,
   });
-  const [isEditing, setIsEditing] = useState<boolean>(false);
 
 
     /**
@@ -52,7 +52,7 @@ function TaskItem({ task, deleteTask, toggleCompleted, editTask }: TaskProps) {
       <div className="flex flex-col gap-6 mb-4 p-3 border rounded-md">
         {isEditing ? (
           <div className="flex flex-col gap-6">
-            <div className="mb-4">
+            <div>
               <input
                 autoFocus
                 value={editingInputs.title}
@@ -62,7 +62,7 @@ function TaskItem({ task, deleteTask, toggleCompleted, editTask }: TaskProps) {
                 className="w-full p-2 border border-gray-300 font-medium rounded-md focus:outline-indigo-700"
               />
             </div>
-            <div className="mb-4">
+            <div>
               <textarea
                 value={editingInputs.description}
                 onChange={(e) => setEditingInputs({ ...editingInputs, description: e.target.value })}
