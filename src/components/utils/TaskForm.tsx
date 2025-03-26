@@ -36,8 +36,8 @@ function TaskForm() {
 
   return (
     <>
-      <div className="xl:self-start bg-white dark:bg-transparent p-3 rounded-lg shadow-sm font-[poppins]">
-        <h2 className="text-xl font-semibold mb-6 dark:text-white">Add New Task</h2>
+      <div className="xl:self-start bg-white dark:bg-transparent p-3 mb-6 rounded-lg shadow-sm font-[poppins]">
+        <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white">Add New Task</h2>
         <form onSubmit={(e) => e.preventDefault()}>
           <div className="mb-4">
             <label className="block text-base font-medium mb-2 text-gray-900 dark:text-white">Title</label>

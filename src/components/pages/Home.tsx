@@ -4,6 +4,7 @@ import TaskList from "../utils/TaskList";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { TasksContext, Todo } from "../../context/TasksContext";
+import TasksSummary from "../utils/TasksSummary";
 
 function Home() {
   const [tasks, setTasks] = useState<Todo[]>(JSON.parse(localStorage.getItem("Tasks") || "[]"));
@@ -15,23 +16,15 @@ function Home() {
   return (
     <>
       <Header />
-      <ToastContainer
-          position="top-right"
-          autoClose={2500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
+      <ToastContainer position="top-right" autoClose={2500} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
       <TasksContext.Provider value={{ tasks, setTasks }}>
         <main>
           <section className="py-8">
             <div className="container grid grid-cols-1 xl:grid-cols-[27rem,_50rem] justify-center xl:justify-between items-start gap-4 mx-auto px-2">
-              <TaskForm />
+              <div>
+                <TaskForm />
+                <TasksSummary />
+              </div>
               <TaskList />
             </div>
           </section>
