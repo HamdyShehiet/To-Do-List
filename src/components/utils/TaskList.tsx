@@ -2,8 +2,8 @@ import NoTasks from "./NoTasks";
 import TaskItem from "./TaskItem";
 import { toast } from "react-toastify";
 import { useContext, useState } from "react";
-import { TasksContext, Todo } from "../../context/TasksContext";
 import DeleteModal from "../ui/modals/DeleteModal";
+import { TasksContext, Todo } from "../../context/TasksContext";
 
 function TaskList() {
   const { tasks, setTasks } = useContext(TasksContext);
@@ -12,6 +12,7 @@ function TaskList() {
 
   const [isConfirmDelete, setIsConfirmDelete] = useState<string>("");
   const [taskToDelete, setTaskToDelete] = useState<Todo | null>(null);
+  const [tasksToDelete, setTasksToDelete] = useState<Todo[] | null>(null);
   
   const filterOptions = [
     { value: "all", text: "All" },
@@ -21,7 +22,6 @@ function TaskList() {
   
   const activeTasks = tasks?.filter((item) => !item.isCompleted);
   const completedTasks = tasks?.filter((item) => item.isCompleted);
-
 
   /**
    * Filtered Tasks
@@ -65,25 +65,30 @@ function TaskList() {
   };
   
 
+
+
+    /**
+   * ConfirmDeleteAllTasks
+   */
+    const confirmDeleteAllTasks = (action : string , filteredTasks : Todo[]): void => {
+      if(action === "confirmDeleteAllTasks"){
+        setIsConfirmDelete(action)
+        setTasksToDelete(filteredTasks)
+      }
+      };
+
   /**
    * Delete All Filtered Tasks 
    */
   const deleteAllTask = (): void => {
-    let UpdatedTasks: Todo[] ;
-
-    switch (filter) {
-      case "active":
-        UpdatedTasks = completedTasks;
-        break;
-      case "completed":
-        UpdatedTasks = activeTasks;
-        break;
-      default:
-        UpdatedTasks = [];
-    }
+    if(!tasksToDelete)return;
+    const UpdatedTasks = tasks?.filter((item) => !tasksToDelete.includes(item));;
     setTasks(UpdatedTasks)
-    localStorage.setItem("Tasks", JSON.stringify(UpdatedTasks))
+    setIsConfirmDelete("");
+    setTasksToDelete(null)
   };
+
+
 
   /**
    * ToggleCompleted Task
@@ -92,6 +97,8 @@ function TaskList() {
     const updatedTasks = tasks.map((item) => (item.id === task.id ? { ...item, isCompleted: !item.isCompleted } : item));
     setTasks(updatedTasks);
   };
+
+
 
   /**
    * Edit Tasks
@@ -125,15 +132,20 @@ function TaskList() {
             ))}
           </div>
 
-          { filteredTasks.length !== 0 &&<button onClick={()=>deleteAllTask()} className="flex items-center gap-2 text-base text-red-600 hover:text-red-500" title="Delete Task">
+          { filteredTasks.length !== 0 &&
+          <button onClick={()=>confirmDeleteAllTasks("confirmDeleteAllTasks", filteredTasks)} className="flex items-center gap-2 text-base text-red-600 hover:text-red-500" title="Delete Task">
             <i className="fa-solid fa-trash"></i>
             <span>Delete All</span>
           </button>}
+          {/* <button onClick={()=>deleteAllTask()} className="flex items-center gap-2 text-base text-red-600 hover:text-red-500" title="Delete Task">
+            <i className="fa-solid fa-trash"></i>
+            <span>Delete All</span>
+          </button> */}
         </div>
 
         <hr className="pb-6" />
 
-        {isConfirmDelete && <DeleteModal deleteTask={deleteTask} setIsConfirmDelete={setIsConfirmDelete} isConfirmDelete={isConfirmDelete} />}
+        {isConfirmDelete && <DeleteModal deleteTask={deleteTask} deleteAllTask={deleteAllTask} setIsConfirmDelete={setIsConfirmDelete} isConfirmDelete={isConfirmDelete} />}
         
         <div>
           {filteredTasks.length !== 0 ? (

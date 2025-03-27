@@ -1,9 +1,12 @@
 
+interface DeleteModalProps {
+  isConfirmDelete: string;
+  setIsConfirmDelete: (arg: string) => void;
+  deleteTask: () => void;
+  deleteAllTask: () => void;
+}
 
-
-function DeleteModal({isConfirmDelete, setIsConfirmDelete ,deleteTask} : {isConfirmDelete : string ;   setIsConfirmDelete: (arg: string ) => void  ; deleteTask : ()=> void}) {
-
-
+function DeleteModal({isConfirmDelete, setIsConfirmDelete ,deleteTask, deleteAllTask} : DeleteModalProps) {
 
     /**
    * Cancel Delete
@@ -23,12 +26,12 @@ function DeleteModal({isConfirmDelete, setIsConfirmDelete ,deleteTask} : {isConf
                 <div className="text-5xl text-red-600">
                   <i className="fa-solid fa-trash"></i>
                 </div>
-                <p className="text-slate-900 text-base font-medium mt-4">Are you sure you want to delete {isConfirmDelete === "confirmDeleteTask" ? "task" : "all tasks"}?</p>
+                <p className="text-slate-900 text-base font-medium mt-4">Are you sure you want to delete { isConfirmDelete === "confirmDeleteAllTasks" ?  "all tasks" : "task"}?</p>
                 <div className="text-center space-x-4 mt-10">
                   <button onClick={()=>cancelDelete()} type="button" className="px-5 py-2.5 rounded-lg text-slate-900 text-sm font-medium bg-gray-200 hover:bg-gray-300 active:bg-gray-200">
                     No, Cancel
                   </button>
-                  <button onClick={()=>deleteTask()} type="button" className="px-5 py-2.5 rounded-lg text-white text-sm font-medium bg-red-600 hover:bg-red-700 active:bg-red-600">
+                  <button onClick={()=>isConfirmDelete === "confirmDeleteAllTasks" ? deleteAllTask()  : deleteTask()} type="button" className="px-5 py-2.5 rounded-lg text-white text-sm font-medium bg-red-600 hover:bg-red-700 active:bg-red-600">
                     Yes, Delete
                   </button>
                 </div>
