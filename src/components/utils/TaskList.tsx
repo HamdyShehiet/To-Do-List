@@ -137,10 +137,6 @@ function TaskList() {
             <i className="fa-solid fa-trash"></i>
             <span>Delete All</span>
           </button>}
-          {/* <button onClick={()=>deleteAllTask()} className="flex items-center gap-2 text-base text-red-600 hover:text-red-500" title="Delete Task">
-            <i className="fa-solid fa-trash"></i>
-            <span>Delete All</span>
-          </button> */}
         </div>
 
         <hr className="pb-6" />
