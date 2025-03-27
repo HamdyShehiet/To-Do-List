@@ -3,11 +3,15 @@ import TaskItem from "./TaskItem";
 import { toast } from "react-toastify";
 import { useContext, useState } from "react";
 import { TasksContext, Todo } from "../../context/TasksContext";
+import DeleteModal from "../ui/modals/DeleteModal";
 
 function TaskList() {
   const { tasks, setTasks } = useContext(TasksContext);
 
   const [filter, setFilter] = useState<string>("all");
+
+  const [isConfirmDelete, setIsConfirmDelete] = useState<string>("");
+  const [taskToDelete, setTaskToDelete] = useState<Todo | null>(null);
   
   const filterOptions = [
     { value: "all", text: "All" },
@@ -24,7 +28,7 @@ function TaskList() {
    */
 
   let filteredTasks: Todo[] = tasks;
-  
+
   switch (filter) {
     case "active":
       filteredTasks = activeTasks;
@@ -38,13 +42,28 @@ function TaskList() {
 
 
   
+    /**
+   * ConfirmDeleteTask
+   */
+  const confirmDelete = (action : string , task : Todo): void => {
+    if(action === "confirmDeleteTask"){
+      setIsConfirmDelete(action)
+      setTaskToDelete(task)
+    }
+    };
+
   /**
    * Delete Task
    */
-  const deleteTask = (task: Todo): void => {
-    const updatedTasks = tasks?.filter((item) => item.id !== task.id);
+  const deleteTask = (): void => {
+    if(!taskToDelete)return;
+
+    const updatedTasks = tasks?.filter((item) => item.id !== taskToDelete.id);
     setTasks(updatedTasks);
+    setIsConfirmDelete("");
+    setTaskToDelete(null)
   };
+  
 
   /**
    * Delete All Filtered Tasks 
@@ -114,10 +133,12 @@ function TaskList() {
 
         <hr className="pb-6" />
 
+        {isConfirmDelete && <DeleteModal deleteTask={deleteTask} setIsConfirmDelete={setIsConfirmDelete} isConfirmDelete={isConfirmDelete} />}
+        
         <div>
           {filteredTasks.length !== 0 ? (
             filteredTasks?.map((task) => {
-              return <TaskItem key={task.id} task={task} editTask={editTask} deleteTask={deleteTask} toggleCompleted={toggleCompleted} />;
+              return <TaskItem key={task.id} task={task} editTask={editTask}  toggleCompleted={toggleCompleted}  confirmDelete={confirmDelete}/>;
             })
           ) : (
             <NoTasks filter={filter} />

@@ -4,12 +4,12 @@ import { Todo } from "../../context/TasksContext";
 
 interface TaskProps {
   task: Todo;
-  deleteTask: (task: Todo) => void;
   toggleCompleted: (task: Todo) => void;
   editTask: (updatedTask: Todo) => void;
+  confirmDelete : (action : string , task : Todo) => void
 }
 
-function TaskItem({ task, deleteTask, toggleCompleted, editTask }: TaskProps) {
+function TaskItem({ task, toggleCompleted, editTask, confirmDelete}: TaskProps) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editingInputs, setEditingInputs] = useState<FormInputs>({
     title: task.title,
@@ -25,7 +25,7 @@ function TaskItem({ task, deleteTask, toggleCompleted, editTask }: TaskProps) {
   };
   
     /**
-   * save Changes
+   * save Edited Changes
    */
   const saveChanges = (): void => {
     if(editingInputs.title && editingInputs.description){
@@ -40,13 +40,15 @@ function TaskItem({ task, deleteTask, toggleCompleted, editTask }: TaskProps) {
     }
 
   /**
-   * Cancl Changes
+   * Cancel Changes
    */
-  const cancel = (): void => {
+  const cancelEdit = (): void => {
       setIsEditing(false);
     };
   
 
+
+  
   return (
     <>
       <div className="flex flex-col gap-6 mb-4 p-3 border rounded-md">
@@ -71,7 +73,7 @@ function TaskItem({ task, deleteTask, toggleCompleted, editTask }: TaskProps) {
               />
             </div>
             <div className="flex items-center justify-end gap-4">
-              <button onClick={()=>cancel()} className={` text-gray-900 dark:text-white py-2 px-4 rounded-md`}>Cancel</button>
+              <button onClick={()=>cancelEdit()} className={` text-gray-900 dark:text-white py-2 px-4 rounded-md`}>Cancel</button>
               <button onClick={() => saveChanges()} className={`${ !editingInputs.title || !editingInputs.description ? "cursor-not-allowed" : ""} bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300`}>
                 Save Changes
               </button>
@@ -94,7 +96,9 @@ function TaskItem({ task, deleteTask, toggleCompleted, editTask }: TaskProps) {
                   <i className="fa-solid fa-pen-to-square"></i>
                 </button>
 
-                <button onClick={() => deleteTask(task)} className="text-lg text-red-600 hover:text-red-500" title="Delete Task">
+                <button 
+                onClick={() => confirmDelete("confirmDeleteTask", task)} 
+                className="text-lg text-red-600 hover:text-red-500" title="Delete Task">
                   <i className="fa-solid fa-trash"></i>
                 </button>
               </div>
