@@ -71,7 +71,7 @@ function TaskList() {
         </div>
         <hr className="pb-6" />
         <div>
-          {tasks.length !== 0 ? (
+          {filteredTasks.length !== 0 ? (
             filteredTasks?.map((task) => {
               return <TaskItem key={task.id} task={task} editTask={editTask} deleteTask={deleteTask} toggleCompleted={toggleCompleted} />;
             })
