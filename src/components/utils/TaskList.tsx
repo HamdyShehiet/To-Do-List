@@ -62,6 +62,7 @@ function TaskList() {
     setTasks(updatedTasks);
     setIsConfirmDelete("");
     setTaskToDelete(null)
+    toast.success("Task deleted successfully");
   };
   
 
@@ -84,6 +85,7 @@ function TaskList() {
     if(!tasksToDelete)return;
     const UpdatedTasks = tasks?.filter((item) => !tasksToDelete.includes(item));;
     setTasks(UpdatedTasks)
+    toast.success("Tasks deleted successfully");
     setIsConfirmDelete("");
     setTasksToDelete(null)
   };
@@ -113,17 +115,17 @@ function TaskList() {
 
   return (
     <>
-      <div className="bg-white dark:bg-transparent w-full p-3 rounded-lg shadow-sm font-[poppins]">
+      <div className="bg-white dark:bg-transparent w-full p-2 rounded-lg shadow-sm font-[poppins]">
 
         <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white">My Tasks</h2>
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-wrap">
           <div className="flex flex-wrap">
             {filterOptions.map((option) => (
               <button
                 key={option.value}
                 onClick={() => setFilter(option.value)}
-                className={`py-3 px-4 focus:outline-none font-medium mr-4 ${
+                className={`py-3 px-[clamp(.5rem,_2vw,_1rem)] focus:outline-none font-medium mr-1 ${
                   filter === option.value ? "border-b-2 border-indigo-600 text-indigo-600" : "text-gray-600 dark:text-white hover:text-indigo-600"
                 }`}
               >
@@ -133,7 +135,7 @@ function TaskList() {
           </div>
 
           { filteredTasks.length !== 0 &&
-          <button onClick={()=>confirmDeleteAllTasks("confirmDeleteAllTasks", filteredTasks)} className="flex items-center gap-2 text-base text-red-600 hover:text-red-500" title="Delete Task">
+          <button onClick={()=>confirmDeleteAllTasks("confirmDeleteAllTasks", filteredTasks)} className="flex items-center gap-1 py-3 text-base text-red-600 hover:text-red-500" title="Delete Task">
             <i className="fa-solid fa-trash"></i>
             <span>Delete All</span>
           </button>}

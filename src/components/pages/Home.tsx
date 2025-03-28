@@ -20,7 +20,7 @@ function Home() {
       <TasksContext.Provider value={{ tasks, setTasks }}>
         <main>
           <section className="py-8">
-            <div className="container grid grid-cols-1 xl:grid-cols-[27rem,_50rem] justify-center xl:justify-between items-start gap-4 mx-auto px-2">
+            <div className="container grid grid-cols-1 xl:grid-cols-[26rem,_51.5rem] justify-center xl:justify-between items-start gap-2 mx-auto px-2">
               <div>
                 <TaskForm />
                 <TasksSummary />
