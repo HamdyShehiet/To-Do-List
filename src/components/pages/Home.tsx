@@ -5,14 +5,24 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { TasksContext, Todo } from "../../context/TasksContext";
 import TasksSummary from "../utils/TasksSummary";
+import { useNavigate } from "react-router";
 
 function Home() {
+  const navigate = useNavigate()
   const [tasks, setTasks] = useState<Todo[]>(JSON.parse(localStorage.getItem("Tasks") || "[]"));
 
   useEffect(() => {
     localStorage.setItem("Tasks", JSON.stringify(tasks));
   }, [tasks]);
 
+  useEffect(()=>{
+    const loggedInUser = localStorage.getItem("loggedInUser")
+    if(!loggedInUser){
+      navigate("/signup")
+    }
+  },[])
+
+  
   return (
     <>
       <Header />
