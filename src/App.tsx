@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router";
 import Home from "./components/pages/Home";
 import NotFound from "./components/pages/NotFound";
-import SignUp from "./components/pages/SignUp";
-import LogIn from "./components/pages/LogIn";
+import SignUp from "./components/auth/SignUp";
+import LogIn from "./components/auth/LogIn";
 import Header from "./components/layouts/Header";
 
 function App() {
