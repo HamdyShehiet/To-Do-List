@@ -65,7 +65,7 @@ function TaskForm() {
               className="w-full p-2 border border-gray-300 rounded-md max-h-48 min-h-24 font-medium focus:outline-indigo-700"
             />
           </div>
-          <button onClick={() => addTask()} className={`w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300 ${title.trim() === "" ? "cursor-not-allowed" : ""}`}>
+          <button onClick={() => addTask()} className={`w-full font-medium text-base bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300 ${title.trim() === "" ? "cursor-not-allowed" : ""}`}>
             Add Task
           </button>
         </form>
