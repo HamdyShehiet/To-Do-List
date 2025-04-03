@@ -34,10 +34,12 @@ function Header() {
     
   },[])
 
+  const loggedInUser = localStorage.getItem("LoggedInUser")
   const logOut = ()=>{
     navigate("/login")
     localStorage.removeItem("LoggedInUser")
   }
+  
   return (
     <>
       <header className="bg-white shadow py-6 font-[Poppins] dark:bg-gray-800">
@@ -55,7 +57,7 @@ function Header() {
           </div>
           <div className="flex items-center gap-6">
           <button onClick={()=>toggleTheme()} className="text-xl text-gray-900 hover:text-gray-500 dark:text-yellow-500 dark:hover:text-yellow-600">{ isDark ? <i className="fa-solid fa-sun"></i>:<i className="fa-solid fa-moon"></i>}</button>
-          <button onClick={()=>logOut()} className="font-medium text-base bg-transparent border text-gray-900 py-1 px-3 rounded-md cursor-pointer hover:text-indigo-700 transition duration-300 ">Log out</button>
+          {loggedInUser && <button onClick={()=>logOut()} className="font-medium text-base bg-transparent border text-gray-900 py-1 px-3 rounded-md cursor-pointer hover:text-indigo-700 transition duration-300 ">Log out</button> }
           </div>
         </div>
       </header>
