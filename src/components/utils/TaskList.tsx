@@ -6,7 +6,7 @@ import DeleteModal from "../ui/modals/DeleteModal";
 import { TasksContext, Todo } from "../../context/TasksContext";
 
 function TaskList() {
-  const { tasks, setTasks } = useContext(TasksContext);
+  const { users , setUsers, tasks, setTasks  } = useContext(TasksContext);
 
   const [filter, setFilter] = useState<string>("all");
 
@@ -22,6 +22,7 @@ function TaskList() {
   
   const activeTasks = tasks?.filter((item) => !item.isCompleted);
   const completedTasks = tasks?.filter((item) => item.isCompleted);
+  const loggedInUser = localStorage.getItem("LoggedInUser")
 
   /**
    * Filtered Tasks
@@ -60,6 +61,8 @@ function TaskList() {
 
     const updatedTasks = tasks?.filter((item) => item.id !== taskToDelete.id);
     setTasks(updatedTasks);
+    const updatedUsers = users?.map((user) => user.id === loggedInUser ? { ...user, tasks: updatedTasks } : user);
+    setUsers(updatedUsers)
     setIsConfirmDelete("");
     setTaskToDelete(null)
     toast.success("Task deleted successfully");
@@ -83,8 +86,11 @@ function TaskList() {
    */
   const deleteAllTask = (): void => {
     if(!tasksToDelete)return;
-    const UpdatedTasks = tasks?.filter((item) => !tasksToDelete.includes(item));;
-    setTasks(UpdatedTasks)
+    const updatedTasks = tasks?.filter((item) => !tasksToDelete.includes(item));;
+    setTasks(updatedTasks)
+    const updatedUsers = users?.map((user) => user.id === loggedInUser ? { ...user, tasks: updatedTasks } : user);
+    setUsers(updatedUsers)
+
     toast.success("Tasks deleted successfully");
     setIsConfirmDelete("");
     setTasksToDelete(null)
@@ -98,6 +104,8 @@ function TaskList() {
   const toggleCompleted = (task: Todo): void => {
     const updatedTasks = tasks.map((item) => (item.id === task.id ? { ...item, isCompleted: !item.isCompleted } : item));
     setTasks(updatedTasks);
+    const updatedUsers = users?.map((user) => user.id === loggedInUser ? { ...user, tasks: updatedTasks } : user);
+    setUsers(updatedUsers)
   };
 
 
@@ -108,6 +116,10 @@ function TaskList() {
   const editTask = (updatedTask: Todo): void => {
     const updatedTasks = tasks?.map((item) => (item.id === updatedTask.id ? updatedTask : item));
     setTasks(updatedTasks);
+
+    const updatedUsers = users?.map((user) => user.id === loggedInUser ? { ...user, tasks: updatedTasks } : user);
+    setUsers(updatedUsers)
+    
     toast.success("Task Edited Successfully");
   };
 

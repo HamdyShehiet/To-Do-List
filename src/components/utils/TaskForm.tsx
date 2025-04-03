@@ -10,20 +10,26 @@ export interface FormInputs {
 
 
 function TaskForm() {
-  const { tasks, setTasks } = useContext(TasksContext);
+  const { users , setUsers, tasks, setTasks  } = useContext(TasksContext);
   const [formInputs, setFormInputs] = useState<FormInputs>({
     title: "",
     description: "",
   });
   const { title, description } = formInputs;
-  
+
   /**
    * Add Task
    */
   const addTask = (): void => {
     if (title.trim() !== "" && description.trim() !== "") {
-      const newTask: Todo = { ...formInputs, id: uuidv4(), isCompleted : false, date: new Date().toLocaleString() }
-      setTasks([...tasks, newTask]);      
+
+      const updatedTasks: Todo[] =[...tasks, { ...formInputs, id: uuidv4(), isCompleted : false, date: new Date().toLocaleString() }]
+      setTasks(updatedTasks); 
+
+      const loggedInUser = localStorage.getItem("LoggedInUser")
+      const updatedUsers = users?.map((user) => user.id === loggedInUser ? { ...user, tasks: updatedTasks } : user);
+      setUsers(updatedUsers)
+
       toast.success("Task Added Successfully");
       setFormInputs({
         title : "", 
