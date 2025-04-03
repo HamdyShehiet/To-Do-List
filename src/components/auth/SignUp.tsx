@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { User } from "../../App";
+import { Link, useNavigate } from "react-router";
+import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
 
 interface FormInputs {
   username: string;
@@ -7,7 +10,14 @@ interface FormInputs {
   password: string;
 }
 
-function SignUp() {
+interface UsersProps {
+  users : User [];
+  setUsers : React.Dispatch<React.SetStateAction<User[]>>;
+}
+
+function SignUp({users, setUsers} : UsersProps) {
+  const navigate = useNavigate()
+  const [show, setShow] = useState<boolean>(false);
   const [formInputs, setFormInputs] = useState<FormInputs>({
     username: "",
     email: "",
@@ -15,7 +25,29 @@ function SignUp() {
   });
 
   function signUp() {
-    console.log(formInputs);
+    if(!formInputs.username && !formInputs.email && !formInputs.password){
+      return;
+    }
+    const newUser = {
+        id: uuidv4(),
+        username: formInputs.username,
+        email: formInputs.email,
+        password: formInputs.password,
+        tasks: [],
+    }
+    const userExist = users?.some((user : User)=> user.email === formInputs.email)
+    if(userExist){
+      toast.warning("this email are Used")
+    }else{
+      setUsers([...users, newUser])
+      navigate("/login")
+      toast.success("Task Added Successfully");
+      setFormInputs({
+        username: "",
+        email: "",
+        password: "",
+      })
+    }
   }
 
   return (
@@ -33,12 +65,12 @@ function SignUp() {
               type="text"
               id="username"
               name="username"
+              value={formInputs.username}
               onChange={(e) => {
                 setFormInputs({ ...formInputs, username: e.target.value });
               }}
               placeholder="Enter your username"
               className="block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed"
-              required
             />
           </div>
 
@@ -50,12 +82,12 @@ function SignUp() {
               type="email"
               id="email"
               name="email"
+              value={formInputs.email}
               onChange={(e) => {
                 setFormInputs({ ...formInputs, email: e.target.value });
               }}
               placeholder="Enter your email"
               className="block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed "
-              required
             />
           </div>
 
@@ -64,16 +96,17 @@ function SignUp() {
               Password
             </label>
             <input
-              type="password"
+              type={show ? "text" : "password" }
               name="password"
               id="password"
+              value={formInputs.password}
               onChange={(e) => {
                 setFormInputs({ ...formInputs, password: e.target.value });
               }}
               placeholder="Enter your password"
               className="block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed "
-              required
             />
+            <span onClick={()=>setShow(prev => !prev)}>show</span>
           </div>
           <input
             type="submit"

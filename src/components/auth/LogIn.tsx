@@ -1,19 +1,32 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { User } from "../../App";
 
 interface FormInputs {
   email: string;
   password: string;
 }
+interface UsersProps {
+  users : User [];
+}
 
-function LogIn() {
+function LogIn({users } : UsersProps) {
+  const navigate = useNavigate()
+  const [show, setShow] = useState<boolean>(false);
   const [formInputs, setFormInputs] = useState<FormInputs>({
     email: "",
     password: "",
   });
-
+  
   function LogIn() {
-    console.log(formInputs);
+    if(!formInputs.email && !formInputs.password){
+      return;
+    }
+    const userExist = users?.find((user : User)=> user.email === formInputs.email && user.password === formInputs.password)
+    if(userExist){
+      localStorage.setItem("LoggedInUser",userExist.id)
+      navigate("/")
+    }
   }
   return (
     <section>
@@ -34,7 +47,6 @@ function LogIn() {
               }}
               placeholder="Enter your email"
               className="block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed "
-              required
             />
           </div>
 
@@ -43,7 +55,7 @@ function LogIn() {
               Password
             </label>
             <input
-              type="password"
+              type={show ? "text" : "password" }
               name="password"
               id="password"
               onChange={(e) => {
@@ -51,8 +63,8 @@ function LogIn() {
               }}
               placeholder="Enter your password"
               className="block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed "
-              required
             />
+            <span onClick={()=>setShow(prev => !prev)}>show</span>
           </div>
           <input
             type="submit"
