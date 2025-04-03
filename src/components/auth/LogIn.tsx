@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { User } from "../../App";
+import { toast } from "react-toastify";
 
 interface FormInputs {
   email: string;
@@ -26,6 +27,9 @@ function LogIn({users } : UsersProps) {
     if(userExist){
       localStorage.setItem("LoggedInUser",userExist.id)
       navigate("/")
+      toast.success("Logged In Successfully")
+    }else{
+      toast.error("Please Enter a valid data")
     }
   }
   return (

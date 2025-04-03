@@ -78,7 +78,7 @@ function SignUp({ users, setUsers }: UsersProps) {
     if (!userExist) {
       setUsers([...users, newUser]);
       navigate("/login");
-      toast.success("Task Added Successfully");
+      toast.success("SignUp Successfully");
       setFormInputs({
         username: "",
         email: "",
@@ -108,8 +108,9 @@ function SignUp({ users, setUsers }: UsersProps) {
                 setFormInputs({ ...formInputs, username: e.target.value });
               }}
               placeholder="Enter your username"
-              className="block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed"
+              className={`${inputsErrors.username ? "border-red-600" : ""} block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border  border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed`}
             />
+            {inputsErrors.username && <span className="text-xs text-red-600">{inputsErrors.username}</span>}
           </div>
 
           <div className="flex flex-col gap-2">
@@ -125,8 +126,9 @@ function SignUp({ users, setUsers }: UsersProps) {
                 setFormInputs({ ...formInputs, email: e.target.value });
               }}
               placeholder="Enter your email"
-              className="block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed "
+              className={`${inputsErrors.email ? "border-red-600" : ""} block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed`}
             />
+            {inputsErrors.email && <span className="text-xs text-red-600">{inputsErrors.email}</span>}
           </div>
 
           <div className="flex flex-col gap-2 relative">
@@ -142,9 +144,10 @@ function SignUp({ users, setUsers }: UsersProps) {
                 setFormInputs({ ...formInputs, password: e.target.value });
               }}
               placeholder="Enter your password"
-              className="block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed "
-            />
-            <button onClick={() => setShowPassword((prev) => !prev)} className="absolute right-3 bottom-2 cursor-pointer text-gray-800">
+              className={`${inputsErrors.password ? "border-red-600" : ""} block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed`}
+              />
+            {inputsErrors.password && <span className="text-xs text-red-600">{inputsErrors.password}</span>}
+            <button onClick={() => setShowPassword((prev) => !prev)} className={`absolute ${inputsErrors.password ? "right-3 bottom-8" : "right-3 bottom-2" }  cursor-pointer text-gray-800`}>
               {showPassword ? <i className="fa-solid fa-eye"></i> : <i className="fa-solid fa-eye-slash"></i>}
             </button>
           </div>
