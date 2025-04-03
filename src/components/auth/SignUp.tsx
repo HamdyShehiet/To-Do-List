@@ -17,7 +17,7 @@ interface UsersProps {
 
 function SignUp({users, setUsers} : UsersProps) {
   const navigate = useNavigate()
-  const [show, setShow] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [formInputs, setFormInputs] = useState<FormInputs>({
     username: "",
     email: "",
@@ -91,12 +91,12 @@ function SignUp({users, setUsers} : UsersProps) {
             />
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 relative">
             <label htmlFor="password" className="block text-base font-medium text-gray-900">
               Password
             </label>
             <input
-              type={show ? "text" : "password" }
+              type={showPassword ? "text" : "password" }
               name="password"
               id="password"
               value={formInputs.password}
@@ -106,7 +106,7 @@ function SignUp({users, setUsers} : UsersProps) {
               placeholder="Enter your password"
               className="block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed "
             />
-            <span onClick={()=>setShow(prev => !prev)}>show</span>
+            <button onClick={()=>setShowPassword(prev => !prev)} className="absolute right-3 bottom-2 cursor-pointer text-gray-800">{showPassword ?<i className="fa-solid fa-eye"></i> : <i className="fa-solid fa-eye-slash"></i>}</button>
           </div>
           <input
             type="submit"
