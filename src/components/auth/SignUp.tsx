@@ -88,11 +88,11 @@ function SignUp({ users, setUsers }: UsersProps) {
   return (
     <section>
       <div className="container min-h-[85vh] mx-auto flex items-center justify-center font-[poppins]">
-        <form onSubmit={(e) => e.preventDefault()} method="post" className="grid gap-4 max-w-[34rem] w-full p-6 rounded-md border shadow-sm  bg-white">
-          <h2 className="mb-2 text-center text-2xl font-bold text-gray-900">SignUp</h2>
+        <form onSubmit={(e) => e.preventDefault()} method="post" className="grid gap-4 max-w-[34rem] w-full p-6 rounded-md border dark:border-[#444444] shadow-sm bg-white dark:bg-[#121212]">
+          <h2 className="mb-2 text-center text-2xl font-bold text-gray-900 dark:text-[#E0E0E0]">SignUp</h2>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="username" className="block text-base font-medium text-gray-900">
+            <label htmlFor="username" className="block text-base font-medium text-gray-900 dark:text-[#E0E0E0]">
               Username
             </label>
             <input
@@ -104,13 +104,13 @@ function SignUp({ users, setUsers }: UsersProps) {
                 setFormInputs({ ...formInputs, username: e.target.value });
               }}
               placeholder="Enter your username"
-              className={`${inputsErrors.username ? "border-red-600" : ""} block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border  border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed`}
+              className={`${inputsErrors.username ? "border-red-600" : ""} block w-full p-2 text-base font-medium shadow-xs text-gray-900 dark:text-[#E0E0E0] bg-transparent border  border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed`}
             />
             {inputsErrors.username && <span className="text-xs text-red-600">{inputsErrors.username}</span>}
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="block text-base font-medium text-gray-900">
+            <label htmlFor="email" className="block text-base font-medium text-gray-900 dark:text-[#E0E0E0]">
               Email
             </label>
             <input
@@ -122,13 +122,13 @@ function SignUp({ users, setUsers }: UsersProps) {
                 setFormInputs({ ...formInputs, email: e.target.value });
               }}
               placeholder="Enter your email"
-              className={`${inputsErrors.email ? "border-red-600" : ""} block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed`}
+              className={`${inputsErrors.email ? "border-red-600" : ""} block w-full p-2 text-base font-medium shadow-xs text-gray-900 dark:text-[#E0E0E0] bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed`}
             />
             {inputsErrors.email && <span className="text-xs text-red-600">{inputsErrors.email}</span>}
           </div>
 
           <div className="flex flex-col gap-2 relative">
-            <label htmlFor="password" className="block text-base font-medium text-gray-900">
+            <label htmlFor="password" className="block text-base font-medium text-gray-900 dark:text-[#E0E0E0]">
               Password
             </label>
             <input
@@ -140,10 +140,10 @@ function SignUp({ users, setUsers }: UsersProps) {
                 setFormInputs({ ...formInputs, password: e.target.value });
               }}
               placeholder="Enter your password"
-              className={`${inputsErrors.password ? "border-red-600" : ""} block w-full p-2 text-base font-medium shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed`}
+              className={`${inputsErrors.password ? "border-red-600" : ""} block w-full p-2 text-base font-medium shadow-xs text-gray-900 dark:text-[#E0E0E0] bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed`}
               />
             {inputsErrors.password && <span className="text-xs text-red-600">{inputsErrors.password}</span>}
-            <button onClick={() => setShowPassword((prev) => !prev)} className={`absolute ${inputsErrors.password ? "right-3 bottom-8" : "right-3 bottom-2" }  cursor-pointer text-gray-800`}>
+            <button onClick={() => setShowPassword((prev) => !prev)} className={`absolute ${inputsErrors.password ? "right-3 bottom-8" : "right-3 bottom-[.62rem]" }  cursor-pointer text-gray-800 dark:text-[#B0B0B0]`}>
               {showPassword ? <i className="fa-solid fa-eye"></i> : <i className="fa-solid fa-eye-slash"></i>}
             </button>
           </div>
@@ -152,12 +152,12 @@ function SignUp({ users, setUsers }: UsersProps) {
             type="submit"
             onClick={signUp}
             value="SignUp"
-            className="w-full mt-2 font-medium text-base bg-indigo-600 text-white py-2 px-4 rounded-md cursor-pointer hover:bg-indigo-700 transition duration-300 "
+            className="w-full mt-2 font-medium text-base bg-indigo-600 dark:bg-[#444444] dark:hover:bg-[#888888] text-white py-2 px-4 rounded-md cursor-pointer hover:bg-indigo-700 transition duration-300 "
           />
 
           <p className="mt-1 text-center text-base">
-            <span className="font-normal">Already have account?</span>
-            <Link to="/login" className="ml-2 font-medium underline hover:text-indigo-700">
+            <span className="font-normal dark:text-[#E0E0E0]">Already have account?</span>
+            <Link to="/login" className="ml-2 font-medium underline hover:text-indigo-700 dark:text-[#E0E0E0] dark:hover:text-[#888888]">
               Log In
             </Link>
           </p>
