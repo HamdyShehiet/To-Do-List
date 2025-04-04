@@ -127,7 +127,7 @@ function TaskList() {
     <>
       <div className="bg-white dark:bg-transparent w-full p-2 rounded-lg shadow-sm font-[poppins]">
 
-        <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white">My Tasks</h2>
+        <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-[#E0E0E0]">My Tasks</h2>
 
         <div className="flex items-center justify-between flex-wrap">
           <div className="flex flex-wrap">
@@ -135,8 +135,8 @@ function TaskList() {
               <button
                 key={option.value}
                 onClick={() => setFilter(option.value)}
-                className={`py-3 px-[clamp(.5rem,_2vw,_1rem)] focus:outline-none font-medium mr-1 ${
-                  filter === option.value ? "border-b-2 border-indigo-600 text-indigo-600" : "text-gray-600 dark:text-white hover:text-indigo-600"
+                className={`py-3 px-[clamp(.5rem,_2vw,_1rem)] focus:outline-none font-medium mr-1  ${
+                  filter === option.value ? "border-b-2 border-indigo-600 text-indigo-600" : "text-gray-600 dark:text-[#E0E0E0] hover:text-indigo-600 dark:hover:text-indigo-600"
                 }`}
               >
                 <span>{option.text}</span>
@@ -151,7 +151,7 @@ function TaskList() {
           </button>}
         </div>
 
-        <hr className="pb-6" />
+        <hr className="pb-6 dark:border-[#444444]" />
 
         {isConfirmDelete && <DeleteModal deleteTask={deleteTask} deleteAllTask={deleteAllTask} setIsConfirmDelete={setIsConfirmDelete} isConfirmDelete={isConfirmDelete} />}
         

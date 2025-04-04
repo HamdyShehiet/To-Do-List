@@ -61,7 +61,7 @@ function TaskItem({ task, toggleCompleted, editTask, confirmDelete}: TaskProps) 
                 onChange={(e) => setEditingInputs({ ...editingInputs, title: e.target.value })}
                 type="text"
                 name="title"
-                className="w-full p-2 border border-gray-300 font-medium rounded-md focus:outline-indigo-700"
+                className="w-full p-2 border border-gray-300 font-medium rounded-md bg-transparent dark:text-[#E0E0E0] focus:outline-indigo-700  dark:focus:outline-none"
               />
             </div>
             <div>
@@ -69,12 +69,12 @@ function TaskItem({ task, toggleCompleted, editTask, confirmDelete}: TaskProps) 
                 value={editingInputs.description}
                 onChange={(e) => setEditingInputs({ ...editingInputs, description: e.target.value })}
                 name="description"
-                className="w-full p-2 border border-gray-300 rounded-md max-h-48 min-h-24 font-medium focus:outline-indigo-700"
+                className="w-full p-2 border border-gray-300 rounded-md max-h-48 min-h-24 font-medium bg-transparent dark:text-[#E0E0E0] focus:outline-indigo-700 dark:focus:outline-none"
               />
             </div>
             <div className="flex items-center justify-end gap-4">
               <button onClick={()=>cancelEdit()} className={` text-gray-900 dark:text-white py-2 px-4 rounded-md`}>Cancel</button>
-              <button onClick={() => saveChanges()} className={`${ !editingInputs.title || !editingInputs.description ? "cursor-not-allowed" : ""} bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300`}>
+              <button onClick={() => saveChanges()} className={`${ !editingInputs.title || !editingInputs.description ? "cursor-not-allowed" : ""} bg-indigo-600 text-white dark:bg-[#444444] dark:hover:bg-[#888888] py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300`}>
                 Save Changes
               </button>
             </div>
@@ -83,7 +83,7 @@ function TaskItem({ task, toggleCompleted, editTask, confirmDelete}: TaskProps) 
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <h3 className={`font-medium text-lg text-gray-900 dark:text-white ${task.isCompleted ? "line-through" : ""}`}>{task.title}</h3>
+                <h3 className={`font-medium text-lg text-gray-900 dark:text-[#E0E0E0] ${task.isCompleted ? "line-through" : ""}`}>{task.title}</h3>
                 {task.isCompleted && (
                   <span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-lg text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-800/30 dark:text-blue-500">Completed</span>
                 )}
@@ -105,8 +105,8 @@ function TaskItem({ task, toggleCompleted, editTask, confirmDelete}: TaskProps) 
             </div>
 
             <div className="flex flex-col gap-4">
-              <p className={`text-[.9rem] leading-[1.8] font-medium text-gray-700 dark:text-white ${task.isCompleted ? "line-through" : ""}`}>{task.description}</p>
-              <span className="self-end text-[.9rem] leading-[1.8] font-medium text-gray-700 dark:text-white">{task.date}</span>
+              <p className={`text-[.9rem] leading-[1.8] font-medium text-gray-700 dark:text-[#E0E0E0] ${task.isCompleted ? "line-through" : ""}`}>{task.description}</p>
+              <span className="self-end text-[.9rem] leading-[1.8] font-medium text-gray-700 dark:text-[#E0E0E0]">{task.date}</span>
             </div>
           </div>
         )}
