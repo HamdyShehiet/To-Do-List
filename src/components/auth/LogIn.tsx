@@ -70,6 +70,7 @@ function LogIn({users } : UsersProps) {
             />
             <button onClick={()=>setShowPassword(prev => !prev)} className="absolute right-3 bottom-2 cursor-pointer text-gray-800">{showPassword ?<i className="fa-solid fa-eye"></i> : <i className="fa-solid fa-eye-slash"></i>}</button>
             </div>
+
           <input
             type="submit"
             onClick={LogIn}

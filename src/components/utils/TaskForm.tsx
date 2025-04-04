@@ -8,7 +8,6 @@ export interface FormInputs {
   description: string;
 }
 
-
 function TaskForm() {
   const { users , setUsers, tasks, setTasks  } = useContext(TasksContext);
   const [formInputs, setFormInputs] = useState<FormInputs>({

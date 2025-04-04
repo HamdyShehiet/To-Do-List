@@ -30,6 +30,8 @@ function SignUp({ users, setUsers }: UsersProps) {
     email: "",
     password: "",
   });
+
+
   const validateForm = () => {
     const newErrors: FormErrors = {};
 
@@ -39,18 +41,12 @@ function SignUp({ users, setUsers }: UsersProps) {
       newErrors.username = "Username Must be 3 Characters at least";
     }
 
-    /**
-     * Email Validate
-     */
     if (!formInputs.email.trim()) {
       newErrors.email = "Email Is Required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formInputs.email)) {
       newErrors.email = "Not Valid Email";
     }
 
-    /**
-     * Password Validate
-     */
     if (!formInputs.password.trim()) {
       newErrors.password = "Password Is Required";
     } else if (formInputs.password.trim().length < 8) {
@@ -59,8 +55,8 @@ function SignUp({ users, setUsers }: UsersProps) {
 
     setInputsErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-
   };
+
   function signUp() {
     if (!validateForm()) {
       return;
@@ -151,12 +147,14 @@ function SignUp({ users, setUsers }: UsersProps) {
               {showPassword ? <i className="fa-solid fa-eye"></i> : <i className="fa-solid fa-eye-slash"></i>}
             </button>
           </div>
+
           <input
             type="submit"
             onClick={signUp}
             value="SignUp"
             className="w-full mt-2 font-medium text-base bg-indigo-600 text-white py-2 px-4 rounded-md cursor-pointer hover:bg-indigo-700 transition duration-300 "
           />
+
           <p className="mt-1 text-center text-base">
             <span className="font-normal">Already have account?</span>
             <Link to="/login" className="ml-2 font-medium underline hover:text-indigo-700">

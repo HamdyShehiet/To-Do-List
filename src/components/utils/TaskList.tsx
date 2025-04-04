@@ -27,9 +27,7 @@ function TaskList() {
   /**
    * Filtered Tasks
    */
-
   let filteredTasks: Todo[] = tasks;
-
   switch (filter) {
     case "active":
       filteredTasks = activeTasks;
