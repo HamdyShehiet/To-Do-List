@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
-import { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import { TasksContext, Todo } from "../../context/TasksContext";
+import { Todo } from "../../store/Types";
+import { useContext, useState } from "react";
+import { TasksContext } from "../../context/TasksContext";
 
 export interface FormInputs {
   title: string;

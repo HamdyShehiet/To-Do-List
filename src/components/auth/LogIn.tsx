@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
-import { User } from "../../App";
 import { toast } from "react-toastify";
+import { User } from "../../store/Types"; 
+import { Link, useNavigate } from "react-router";
 
 interface FormInputs {
   email: string;

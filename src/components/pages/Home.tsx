@@ -1,13 +1,14 @@
 import TaskForm from "../utils/TaskForm";
 import TaskList from "../utils/TaskList";
+import { User } from "../../store/Types";
+import { Todo } from "../../store/Types";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import TasksSummary from "../utils/TasksSummary";
-import { TasksContext, Todo } from "../../context/TasksContext";
-import { User } from "../../App";
+import { TasksContext } from "../../context/TasksContext"; 
 
 interface UsersProps {
-  users : User [];
+  users : User[];
   setUsers : React.Dispatch<React.SetStateAction<User[]>>;
 }
 

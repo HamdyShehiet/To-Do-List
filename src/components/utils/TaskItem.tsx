@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormInputs } from "./TaskForm";
-import { Todo } from "../../context/TasksContext";
+import { Todo } from "../../store/Types"; 
 
 interface TaskProps {
   task: Todo;

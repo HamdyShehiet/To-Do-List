@@ -1,12 +1,7 @@
+import { User } from "../store/Types"; 
+import { Todo } from "../store/Types";
 import { createContext, Dispatch, SetStateAction } from "react";
-import { User } from "../App";
-export interface Todo {
-  id: string;
-  title: string;
-  description: string;
-  isCompleted: boolean;
-  date: string;
-}
+
 
 export interface TasksContextType {
   tasks: Todo[];

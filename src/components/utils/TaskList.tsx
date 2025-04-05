@@ -1,9 +1,10 @@
 import NoTasks from "./NoTasks";
 import TaskItem from "./TaskItem";
 import { toast } from "react-toastify";
+import { Todo } from "../../store/Types";
 import { useContext, useState } from "react";
 import DeleteModal from "../ui/modals/DeleteModal";
-import { TasksContext, Todo } from "../../context/TasksContext";
+import { TasksContext } from "../../context/TasksContext";
 
 function TaskList() {
   const { users , setUsers, tasks, setTasks  } = useContext(TasksContext);
@@ -59,6 +60,7 @@ function TaskList() {
 
     const updatedTasks = tasks?.filter((item) => item.id !== taskToDelete.id);
     setTasks(updatedTasks);
+
     const updatedUsers = users?.map((user) => user.id === loggedInUser ? { ...user, tasks: updatedTasks } : user);
     setUsers(updatedUsers)
     setIsConfirmDelete("");

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { User } from "../../App";
-import { Link, useNavigate } from "react-router";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
+import { User } from "../../store/Types"; 
+import { Link, useNavigate } from "react-router";
 
 interface FormInputs {
   username: string;
