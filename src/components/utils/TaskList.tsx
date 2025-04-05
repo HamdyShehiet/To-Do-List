@@ -7,23 +7,23 @@ import DeleteModal from "../ui/modals/DeleteModal";
 import { TasksContext } from "../../context/TasksContext";
 
 function TaskList() {
-  const { users , setUsers, tasks, setTasks  } = useContext(TasksContext);
+  const { users, setUsers, tasks, setTasks } = useContext(TasksContext);
 
   const [filter, setFilter] = useState<string>("all");
 
   const [isConfirmDelete, setIsConfirmDelete] = useState<string>("");
   const [taskToDelete, setTaskToDelete] = useState<Todo | null>(null);
   const [tasksToDelete, setTasksToDelete] = useState<Todo[] | null>(null);
-  
+
   const filterOptions = [
     { value: "all", text: "All" },
     { value: "active", text: "Active" },
     { value: "completed", text: "Completed" },
   ];
-  
+
   const activeTasks = tasks?.filter((item) => !item.isCompleted);
   const completedTasks = tasks?.filter((item) => item.isCompleted);
-  const loggedInUser = localStorage.getItem("LoggedInUser")
+  const loggedInUser = localStorage.getItem("LoggedInUser");
 
   /**
    * Filtered Tasks
@@ -40,63 +40,56 @@ function TaskList() {
       filteredTasks = tasks;
   }
 
-
-  
-    /**
+  /**
    * ConfirmDeleteTask
    */
-  const confirmDelete = (action : string , task : Todo): void => {
-    if(action === "confirmDeleteTask"){
-      setIsConfirmDelete(action)
-      setTaskToDelete(task)
+  const confirmDelete = (action: string, task: Todo): void => {
+    if (action === "confirmDeleteTask") {
+      setIsConfirmDelete(action);
+      setTaskToDelete(task);
     }
-    };
+  };
 
   /**
    * Delete Task
    */
   const deleteTask = (): void => {
-    if(!taskToDelete)return;
+    if (!taskToDelete) return;
 
     const updatedTasks = tasks?.filter((item) => item.id !== taskToDelete.id);
     setTasks(updatedTasks);
 
-    const updatedUsers = users?.map((user) => user.id === loggedInUser ? { ...user, tasks: updatedTasks } : user);
-    setUsers(updatedUsers)
+    const updatedUsers = users?.map((user) => (user.id === loggedInUser ? { ...user, tasks: updatedTasks } : user));
+    setUsers(updatedUsers);
     setIsConfirmDelete("");
-    setTaskToDelete(null)
+    setTaskToDelete(null);
     toast.success("Task deleted successfully");
   };
-  
-
-
-
-    /**
-   * ConfirmDeleteAllTasks
-   */
-    const confirmDeleteAllTasks = (action : string , filteredTasks : Todo[]): void => {
-      if(action === "confirmDeleteAllTasks"){
-        setIsConfirmDelete(action)
-        setTasksToDelete(filteredTasks)
-      }
-      };
 
   /**
-   * Delete All Filtered Tasks 
+   * ConfirmDeleteAllTasks
+   */
+  const confirmDeleteAllTasks = (action: string, filteredTasks: Todo[]): void => {
+    if (action === "confirmDeleteAllTasks") {
+      setIsConfirmDelete(action);
+      setTasksToDelete(filteredTasks);
+    }
+  };
+
+  /**
+   * Delete All Filtered Tasks
    */
   const deleteAllTask = (): void => {
-    if(!tasksToDelete)return;
-    const updatedTasks = tasks?.filter((item) => !tasksToDelete.includes(item));;
-    setTasks(updatedTasks)
-    const updatedUsers = users?.map((user) => user.id === loggedInUser ? { ...user, tasks: updatedTasks } : user);
-    setUsers(updatedUsers)
+    if (!tasksToDelete) return;
+    const updatedTasks = tasks?.filter((item) => !tasksToDelete.includes(item));
+    setTasks(updatedTasks);
+    const updatedUsers = users?.map((user) => (user.id === loggedInUser ? { ...user, tasks: updatedTasks } : user));
+    setUsers(updatedUsers);
 
     toast.success("Tasks deleted successfully");
     setIsConfirmDelete("");
-    setTasksToDelete(null)
+    setTasksToDelete(null);
   };
-
-
 
   /**
    * ToggleCompleted Task
@@ -104,11 +97,9 @@ function TaskList() {
   const toggleCompleted = (task: Todo): void => {
     const updatedTasks = tasks.map((item) => (item.id === task.id ? { ...item, isCompleted: !item.isCompleted } : item));
     setTasks(updatedTasks);
-    const updatedUsers = users?.map((user) => user.id === loggedInUser ? { ...user, tasks: updatedTasks } : user);
-    setUsers(updatedUsers)
+    const updatedUsers = users?.map((user) => (user.id === loggedInUser ? { ...user, tasks: updatedTasks } : user));
+    setUsers(updatedUsers);
   };
-
-
 
   /**
    * Edit Tasks
@@ -117,20 +108,16 @@ function TaskList() {
     const updatedTasks = tasks?.map((item) => (item.id === updatedTask.id ? updatedTask : item));
     setTasks(updatedTasks);
 
-    const updatedUsers = users?.map((user) => user.id === loggedInUser ? { ...user, tasks: updatedTasks } : user);
-    setUsers(updatedUsers)
-    
+    const updatedUsers = users?.map((user) => (user.id === loggedInUser ? { ...user, tasks: updatedTasks } : user));
+    setUsers(updatedUsers);
+
     toast.success("Task Edited Successfully");
   };
-
-
 
   return (
     <>
       <div className="bg-white dark:bg-transparent w-full p-2 rounded-lg shadow-sm font-[poppins]">
-
-        <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-[#E0E0E0]">My Tasks</h2>
-
+        <h2 className="mb-6 text-xl font-semibold text-gray-900 dark:text-[#E0E0E0]">My Tasks</h2>
         <div className="flex items-center justify-between flex-wrap">
           <div className="flex flex-wrap">
             {filterOptions.map((option) => (
@@ -146,21 +133,26 @@ function TaskList() {
             ))}
           </div>
 
-          { filteredTasks.length !== 0 &&
-          <button onClick={()=>confirmDeleteAllTasks("confirmDeleteAllTasks", filteredTasks)} className="flex items-center gap-1 py-3 text-base text-red-600 hover:text-red-500" title="Delete Task">
-            <i className="fa-solid fa-trash"></i>
-            <span>Delete All</span>
-          </button>}
+          {filteredTasks.length !== 0 && (
+            <button
+              onClick={() => confirmDeleteAllTasks("confirmDeleteAllTasks", filteredTasks)}
+              className="flex items-center gap-1 py-3 text-base text-red-600 hover:text-red-500"
+              title="Delete Task"
+            >
+              <i className="fa-solid fa-trash"></i>
+              <span>Delete All {filter === "active" ? "Active Tasks" : filter === "completed" ? "Completed Tasks" : "Tasks"}</span>
+            </button>
+          )}
         </div>
 
         <hr className="pb-6 dark:border-[#444444]" />
 
         {isConfirmDelete && <DeleteModal deleteTask={deleteTask} deleteAllTask={deleteAllTask} setIsConfirmDelete={setIsConfirmDelete} isConfirmDelete={isConfirmDelete} />}
-        
+
         <div>
           {filteredTasks.length !== 0 ? (
             filteredTasks?.map((task) => {
-              return <TaskItem key={task.id} task={task} editTask={editTask}  toggleCompleted={toggleCompleted}  confirmDelete={confirmDelete}/>;
+              return <TaskItem key={task.id} task={task} editTask={editTask} toggleCompleted={toggleCompleted} confirmDelete={confirmDelete} />;
             })
           ) : (
             <NoTasks filter={filter} />
