@@ -27,7 +27,7 @@ function LogIn({users } : UsersProps) {
     if(userExist){
       localStorage.setItem("LoggedInUser",userExist.id)
       navigate("/")
-      toast.success("Logged In Successfully")
+      toast.success(`Hello ${userExist.username}`)
     }else{
       toast.error("Please Enter a valid data")
     }
