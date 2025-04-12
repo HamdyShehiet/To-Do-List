@@ -72,7 +72,8 @@ function SignUp({ users, setUsers }: UsersProps) {
 
     const userExist = users?.some((user: User) => user.email === formInputs.email);
     if (!userExist) {
-      setUsers([...users, newUser]);
+      const updatedUsers = [...users, newUser]
+      setUsers(updatedUsers);
       navigate("/login");
       toast.success("SignUp Successfully");
       setFormInputs({
